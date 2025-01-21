@@ -14,17 +14,20 @@ export default function Login({
     status?: string;
     canResetPassword: boolean;
 }) {
+    // Definisikan state form login
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
-        remember: false,
+        remember: false, // Initial value untuk checkbox remember me
     });
 
+    // Fungsi untuk menangani pengiriman form
     const submit: FormEventHandler = (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Mencegah reload halaman
 
+        // Kirim data ke server (endpoint login)
         post(route('login'), {
-            onFinish: () => reset('password'),
+            onFinish: () => reset('password'), // Reset password setelah submit
         });
     };
 
@@ -32,6 +35,7 @@ export default function Login({
         <GuestLayout>
             <Head title="Log in" />
 
+            {/* Menampilkan status login jika ada */}
             {status && (
                 <div className="mb-4 text-sm font-medium text-green-600">
                     {status}
@@ -39,9 +43,9 @@ export default function Login({
             )}
 
             <form onSubmit={submit}>
+                {/* Form untuk email */}
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
-
                     <TextInput
                         id="email"
                         type="email"
@@ -52,13 +56,12 @@ export default function Login({
                         isFocused={true}
                         onChange={(e) => setData('email', e.target.value)}
                     />
-
                     <InputError message={errors.email} className="mt-2" />
                 </div>
 
+                {/* Form untuk password */}
                 <div className="mt-4">
                     <InputLabel htmlFor="password" value="Password" />
-
                     <TextInput
                         id="password"
                         type="password"
@@ -68,25 +71,22 @@ export default function Login({
                         autoComplete="current-password"
                         onChange={(e) => setData('password', e.target.value)}
                     />
-
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
+                {/* Checkbox untuk remember me */}
                 <div className="mt-4 block">
                     <label className="flex items-center">
                         <Checkbox
                             name="remember"
                             checked={data.remember}
-                            onChange={(e) =>
-                                setData('remember', e.target.checked)
-                            }
+                            onChange={(e) => setData('remember', e.target.checked)}
                         />
-                        <span className="ms-2 text-sm text-gray-600">
-                            Remember me
-                        </span>
+                        <span className="ms-2 text-sm text-gray-600">Remember me</span>
                     </label>
                 </div>
 
+                {/* Tombol submit dan link reset password */}
                 <div className="mt-4 flex items-center justify-end">
                     {canResetPassword && (
                         <Link
