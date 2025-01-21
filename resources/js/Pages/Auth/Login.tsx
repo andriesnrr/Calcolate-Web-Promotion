@@ -14,11 +14,11 @@ export default function Login({
     status?: string;
     canResetPassword: boolean;
 }) {
-    // Definisikan state form login
+    // Definisikan state form login dengan tipe boolean untuk 'remember'
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
-        remember: false, // Initial value untuk checkbox remember me
+        remember: false, // Inisialisasi remember dengan nilai false
     });
 
     // Fungsi untuk menangani pengiriman form
@@ -80,7 +80,9 @@ export default function Login({
                         <Checkbox
                             name="remember"
                             checked={data.remember}
-                            onChange={(e) => setData('remember', e.target.checked)}
+                            onChange={(e) =>
+                                setData('remember', e.target.checked) // Menggunakan e.target.checked yang bertipe boolean
+                            }
                         />
                         <span className="ms-2 text-sm text-gray-600">Remember me</span>
                     </label>
