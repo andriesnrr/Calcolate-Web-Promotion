@@ -14,11 +14,11 @@ export default function Login({
     status?: string;
     canResetPassword: boolean;
 }) {
-    // Definisikan state form login dengan tipe boolean untuk 'remember'
+    // Menggunakan tipe boolean untuk 'remember' agar bisa menerima nilai true atau false
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
-        remember: false, // Inisialisasi remember dengan nilai false
+        remember: false, // Menggunakan false sebagai nilai default, yang dapat diterima sebagai boolean
     });
 
     // Fungsi untuk menangani pengiriman form
@@ -81,7 +81,7 @@ export default function Login({
                             name="remember"
                             checked={data.remember}
                             onChange={(e) =>
-                                setData('remember', e.target.checked) // Menggunakan e.target.checked yang bertipe boolean
+                                setData('remember', e.target.checked) // e.target.checked adalah boolean
                             }
                         />
                         <span className="ms-2 text-sm text-gray-600">Remember me</span>
